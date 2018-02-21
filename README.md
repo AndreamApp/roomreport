@@ -8,13 +8,13 @@ An automatic QQ robot based on qqbot, for students counting of CQU SE.
 
 2. Prepare for run environment
 
-Need python 3.+
+	1. Need python 3.+
 
-pip install qqbot
+	2. pip install qqbot
 
-place `name_list.txt` to '~', which is your default folder, in Windows, it's `C:/Users/xxx`
+	3. place `name_list.txt` to '~', which is your default folder, in Windows, it's `C:/Users/xxx`
 
-place `report.py` to `~/.qqbot-tmp/plugins`
+	4. place `report.py` to `~/.qqbot-tmp/plugins`
 
 3. Run qqbot
 
