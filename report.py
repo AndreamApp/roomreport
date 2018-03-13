@@ -3,6 +3,16 @@ import os
 import codecs
 import datetime
 
+from qqbot import qqbotsched
+
+@qqbotsched(hour='23', minute='00')
+def autoReport(bot):
+    gl = bot.List('group', '16软工室长群')
+    if gl is not None:
+        content = listToText(statUnrepot())
+        for group in gl:
+            bot.SendTo(group, content)
+
 bot_state = True
 
 if not os.access('report', os.F_OK):
@@ -43,7 +53,14 @@ def statUnrepot():
             unreport.append(n)
     return unreport
 
+def listToText(list):
+    content = ''
+    for r in list:
+        content += '@' + r + ' '
+    return content
+
 def onQQMessage(bot, contact, member, content): 
+    global bot_state
     if contact.ctype == 'group' and contact.name == '16软工室长群':
         name = member.name
         if('松' in name or '竹' in name or '校外' in name and name in name_list):
@@ -56,10 +73,7 @@ def onQQMessage(bot, contact, member, content):
                 bot.SendTo(contact, '服务已开启')
         # stat
         elif args[0] == '统计':
-            unreport = statUnrepot()
-            content = ''
-            for r in unreport:
-                content += '@' + r + ' '
+            content = listToText(statUnrepot())
             bot.SendTo(contact, content)
         # autorpt 20:00
         #elif args[0] == 'autorpt':
