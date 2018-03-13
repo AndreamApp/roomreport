@@ -5,15 +5,26 @@ import datetime
 
 from qqbot import qqbotsched
 
+'''
+TODO
+权限管理
+定时设置
+自动登录
+'''
+
+bot_state = True
+bot_auto_report = False
+
 @qqbotsched(hour='23', minute='00')
 def autoReport(bot):
+    global bot_auto_report
+    if not bot_auto_report:
+        return
     gl = bot.List('group', '16软工室长群')
     if gl is not None:
         content = listToText(statUnrepot())
         for group in gl:
             bot.SendTo(group, content)
-
-bot_state = True
 
 if not os.access('report', os.F_OK):
     os.mkdir('report')
@@ -75,9 +86,15 @@ def onQQMessage(bot, contact, member, content):
         elif args[0] == '统计':
             content = listToText(statUnrepot())
             bot.SendTo(contact, content)
-        # autorpt 20:00
-        #elif args[0] == 'autorpt':
-        #    bot.SendTo(contact, '机器人已关闭')
+        # autorpt
+        elif args[0] == 'autorpt':
+            bot_auto_report = args[1] == 'on'
+            if args[1] == 'on':
+                bot_auto_report = True
+                bot.SendTo(contact, '定时统计已开启')
+            elif args[1] == 'off':
+                bot_auto_report = False
+                bot.SendTo(contact, '定时统计已关闭')
         # stop
         elif args[0] == 'stop':
             bot_state = False
@@ -88,6 +105,8 @@ def onQQMessage(bot, contact, member, content):
             bot.SendTo(contact, """支持下面这些命令
 help - 获取帮助
 统计 - 统计今天还没上报的寝室
+autorpt on - 开启定时统计，每天23:00准时统计
+autorpt off - 关闭定时统计
 stop - 停止服务
 start - 开启服务
 """)
