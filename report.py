@@ -28,15 +28,16 @@ def autoReport(bot):
 
 if not os.access('report', os.F_OK):
     os.mkdir('report')
-file = codecs.open('name_list.txt', 'r', 'utf-8')
+file = codecs.open('/data/py/roomreport/name_list.txt', 'r', 'utf-8')
 name_list = file.read().split('\n')
 file.close()
+print(os.path.abspath("report/xxx.txt"))
 
 print(name_list)
 
 def retrivePath():
     today = datetime.date.today()
-    path = 'report\\%d-%d-%d.txt' % (today.year, today.month, today.day)
+    path = 'report/%d-%d-%d.txt' % (today.year, today.month, today.day)
     return path
 
 def statReported():
