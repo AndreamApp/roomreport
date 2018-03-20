@@ -7,6 +7,7 @@ from qqbot import qqbotsched
 
 '''
 TODO
+每天0~12的消息，归到前一天
 权限管理
 定时设置
 自动登录
@@ -14,6 +15,7 @@ TODO
 
 bot_state = True
 bot_auto_report = False
+name_list_path = 'name_list.txt' #'/data/py/roomreport/name_list.txt'
 
 @qqbotsched(hour='23', minute='00')
 def autoReport(bot):
@@ -28,16 +30,19 @@ def autoReport(bot):
 
 if not os.access('report', os.F_OK):
     os.mkdir('report')
-file = codecs.open('/data/py/roomreport/name_list.txt', 'r', 'utf-8')
+file = codecs.open(name_list_path, 'r', 'utf-8')
 name_list = file.read().split('\n')
 file.close()
-print(os.path.abspath("report/xxx.txt"))
 
-print(name_list)
+#print(os.path.abspath("report/xxx.txt"))
+
+#print(name_list)
+retrivePath()
 
 def retrivePath():
     today = datetime.date.today()
-    path = 'report/%d-%d-%d.txt' % (today.year, today.month, today.day)
+    offset = today - datetime.timedelta(hours=12)
+    path = 'report/%d-%d-%d.txt' % (offset.year, offset.month, offset.day)
     return path
 
 def statReported():
