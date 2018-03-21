@@ -7,6 +7,7 @@ from qqbot import qqbotsched
 
 '''
 TODO
+消息人性化提示
 每天0~12的消息，归到前一天
 权限管理
 定时设置
@@ -14,8 +15,8 @@ TODO
 '''
 
 bot_state = True
-bot_auto_report = False
-name_list_path = 'name_list.txt' #'/data/py/roomreport/name_list.txt'
+bot_auto_report = True
+name_list_path = '/data/py/roomreport/name_list.txt'
 
 @qqbotsched(hour='23', minute='00')
 def autoReport(bot):
@@ -71,9 +72,11 @@ def statUnrepot():
     return unreport
 
 def listToText(list):
-    content = ''
+    if len(list) == 0:
+        return '所有人都报啦'
+    content = '报寝提醒：'
     for r in list:
-        content += '@' + r + ' '
+        content += '\n@' + r + ' '
     return content
 
 def onQQMessage(bot, contact, member, content): 
