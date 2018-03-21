@@ -29,8 +29,8 @@ def autoReport(bot):
         for group in gl:
             bot.SendTo(group, content)
 
-if not os.access('report', os.F_OK):
-    os.mkdir('report')
+if not os.access('/data/report', os.F_OK):
+    os.mkdir('/data/report')
 file = codecs.open(name_list_path, 'r', 'utf-8')
 name_list = file.read().split('\n')
 file.close()
@@ -43,7 +43,7 @@ retrivePath()
 def retrivePath():
     today = datetime.date.today()
     offset = today - datetime.timedelta(hours=12)
-    path = 'report/%d-%d-%d.txt' % (offset.year, offset.month, offset.day)
+    path = '/data/report/%d-%d-%d.txt' % (offset.year, offset.month, offset.day)
     return path
 
 def statReported():
