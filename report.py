@@ -13,7 +13,7 @@ TODO
 '''
 
 bot_state = True
-bot_auto_report = False
+bot_auto_report = True
 
 @qqbotsched(hour='23', minute='00')
 def autoReport(bot):
@@ -26,18 +26,19 @@ def autoReport(bot):
         for group in gl:
             bot.SendTo(group, content)
 
-if not os.access('report', os.F_OK):
-    os.mkdir('report')
+if not os.access('/data/report', os.F_OK):
+    os.mkdir('/data/report')
 file = codecs.open('/data/py/roomreport/name_list.txt', 'r', 'utf-8')
 name_list = file.read().split('\n')
 file.close()
-print(os.path.abspath("report/xxx.txt"))
+#print(os.path.abspath("report/xxx.txt"))
 
-print(name_list)
+#print(name_list)
+
 
 def retrivePath():
     today = datetime.date.today()
-    path = 'report/%d-%d-%d.txt' % (today.year, today.month, today.day)
+    path = '/data/report/%d-%d-%d.txt' % (today.year, today.month, today.day)
     return path
 
 def statReported():
@@ -73,7 +74,7 @@ def listToText(list):
 
 def onQQMessage(bot, contact, member, content): 
     global bot_state
-    if contact.ctype == 'group' and contact.name == '16软工室长群':
+    if contact.ctype == 'group' and contact.name == '机器人交流':# '16软工室长群':
         name = member.name
         if('松' in name or '竹' in name or '校外' in name and name in name_list):
             report(name)
