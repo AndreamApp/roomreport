@@ -1,44 +1,35 @@
-# TableServer
+# roomreport
 
-搭建第三方服务器，提供开放的重大教务网接口，如课表、成绩、考试查询接口。
+An automatic QQ robot based on qqbot, for students counting of CQU SE.
 
-## 环境准备
+## Get Started
 
-1. MongoDb
+1. Download this project
 
-```shell
-yum -y install mongodb-org
-```
+2. Prepare for run environment
 
-2. Node.js
+	1. Need python 3.+
 
-```shell
-yum -y install nodejs
-```
+	2. pip install qqbot
 
-3. 源码下载
+	3. place `name_list.txt` to '~', which is your default folder, in Windows, it's `C:/Users/xxx`
 
-```shell
-yum -y install git-core
-git clone "https://github.com/AndreamApp/TableServer.git"
-cd TableServer
-npm install
-```
+	4. place `report.py` to `~/.qqbot-tmp/plugins`
 
-## 开始使用
+3. Run qqbot
 
-1. 启动MongoDb
-
-```shell
-mkdir -p /data/db
-mongod --dbpath /data/db
-```
-
-2. 启动node服务器
-
-```shell
-node TableServer/app
-```
+	1. Start qqbot
+	
+	```shell
+	qqbot
+	```
+	and scan the QR code to login
+	
+	2. Start report plugins in another cmd
+	
+	```shell
+	qq plug report
+	```
 
 ## Lisence
 
