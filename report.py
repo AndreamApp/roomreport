@@ -19,7 +19,7 @@ bot_auto_report = True
 
 name_list_path = '/data/py/roomreport/name_list.txt'
 
-@qqbotsched(hour='23', minute='00')
+@qqbotsched(hour='23', minute='30')
 def autoReport(bot):
     global bot_auto_report
     if not bot_auto_report:
@@ -40,6 +40,7 @@ def retrivePath():
     today = datetime.date.today()
     offset = today - datetime.timedelta(hours=12)
     path = '/data/report/%d-%d-%d.txt' % (offset.year, offset.month, offset.day)
+    return path
 
 file = codecs.open('/data/py/roomreport/name_list.txt', 'r', 'utf-8')
 name_list = file.read().split('\n')
@@ -82,7 +83,9 @@ def onQQMessage(bot, contact, member, content):
     global bot_state
     if contact.ctype == 'group' and contact.name == '16软工室长群': #'机器人交流':# 
         name = member.name
-        if('松' in name or '竹' in name or '校外' in name and name in name_list):
+        if name == '校外租房-香港-':
+            name = '校外租房-香港-王志恒'
+        if True:
             report(name)
         
         args = content.split(' ')
