@@ -76,7 +76,7 @@ def listToText(list):
         return '所有人都报啦'
     content = '报寝提醒：'
     for r in list:
-        content += '\n@' + r + ' '
+        content += '\n@' + r[0:r.rindex('-')] + ' '
     return content
 
 def onQQMessage(bot, contact, member, content): 
