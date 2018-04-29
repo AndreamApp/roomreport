@@ -2,3 +2,7 @@
 .report.py.swp
 report.pyc
 /__pycache__
+/idea
+/export
+chat.txt
+/venv

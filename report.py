@@ -37,7 +37,7 @@ name_list = file.read().split('\n')
 file.close()
 
 def retrivePath():
-    today = datetime.date.today()
+    today = datetime.datetime.now()
     offset = today - datetime.timedelta(hours=12)
     path = '/data/report/%d-%d-%d.txt' % (offset.year, offset.month, offset.day)
     return path
